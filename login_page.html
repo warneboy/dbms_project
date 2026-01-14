@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Login | Commercial Platform</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #16315c;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  width: 360px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.role-switch {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.role-switch button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background: #eee;
+  font-weight: bold;
+}
+
+.role-switch button.active {
+  background: #2a5298;
+  color: white;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-size: 14px;
+  display: block;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background: #1e3c72;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-btn:hover {
+  background: #16315c;
+}
+
+.seller-only,
+.customer-only {
+  display: none;
+}
+
+.register {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  text-decoration: none;
+  color: gray;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.register:hover {
+  color: #16315c;
+}
+
+.footer-text {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 15px;
+  color: gray;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Login to Platform</h2>
+
+  <!-- Role Selection -->
+  <div class="role-switch">
+    <button id="customerBtn" class="active" type="button">Customer</button>
+    <button id="sellerBtn" type="button">Seller</button>
+  </div>
+
+  <!-- Login Form -->
+  <form id="loginForm">
+
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" required>
+    </div>
+
+    <div class="input-group">
+      <label>Password</label>
+      <input type="password" required>
+    </div>
+
+    <!-- Seller Only -->
+    <div class="input-group seller-only">
+      <label>Shop Name</label>
+      <input type="text">
+    </div>
+
+    <div class="input-group seller-only">
+      <label>Business ID</label>
+      <input type="text">
+    </div>
+
+    <!-- Customer Only -->
+    <div class="input-group customer-only">
+      <label>Mobile Number</label>
+      <input type="tel">
+    </div>
+
+    <button type="submit" class="login-btn">Login</button>
+  </form>
+
+  <!-- REGISTER LINK -->
+  <a href="signup.html" class="register">Create a new account</a>
+
+  <p class="footer-text">© 2026 Commercial Platform</p>
+</div>
+
+<script>
+const customerBtn = document.getElementById("customerBtn");
+const sellerBtn = document.getElementById("sellerBtn");
+
+const sellerFields = document.querySelectorAll(".seller-only");
+const customerFields = document.querySelectorAll(".customer-only");
+
+// Default
+showCustomer();
+
+customerBtn.addEventListener("click", showCustomer);
+sellerBtn.addEventListener("click", showSeller);
+
+function showCustomer() {
+  customerBtn.classList.add("active");
+  sellerBtn.classList.remove("active");
+
+  sellerFields.forEach(el => el.style.display = "none");
+  customerFields.forEach(el => el.style.display = "block");
+}
+
+function showSeller() {
+  sellerBtn.classList.add("active");
+  customerBtn.classList.remove("active");
+
+  sellerFields.forEach(el => el.style.display = "block");
+  customerFields.forEach(el => el.style.display = "none");
+}
+
+// Demo submit
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  alert("Login successful (frontend demo)");
+});
+</script>
+
+</body>
+</html>

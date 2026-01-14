@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up | Commercial Platform</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  width: 100%;
+  max-width: 520px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #243b55;
+}
+
+.role-switch {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.role-switch button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background: #eee;
+  font-weight: bold;
+}
+
+.role-switch button.active {
+  background: #243b55;
+  color: white;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+textarea {
+  resize: none;
+}
+
+.image-preview {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 180px;
+  display: none;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #243b55;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #141e30;
+}
+
+.shopkeeper-only {
+  display: none;
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: gray;
+  margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Create Account</h2>
+
+  <!-- ROLE SWITCH -->
+  <div class="role-switch">
+    <button id="customerBtn" class="active">Customer</button>
+    <button id="shopkeeperBtn">Shopkeeper</button>
+  </div>
+
+  <form id="signupForm">
+
+    <!-- COMMON -->
+    <div class="input-group">
+      <label>Full Name</label>
+      <input type="text" required>
+    </div>
+
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" required>
+    </div>
+
+    <div class="input-group">
+      <label>Mobile Number</label>
+      <input type="tel" required>
+    </div>
+
+    <div class="input-group">
+      <label>Password</label>
+      <input type="password" required>
+    </div>
+
+    <!-- CUSTOMER -->
+    <div class="input-group customer-only">
+      <label>Delivery Address</label>
+      <textarea rows="3"></textarea>
+    </div>
+
+    <!-- SHOPKEEPER -->
+    <div class="input-group shopkeeper-only">
+      <label>Shop Name</label>
+      <input type="text">
+    </div>
+
+    <div class="input-group shopkeeper-only">
+      <label>Shop Address</label>
+      <textarea rows="3"></textarea>
+    </div>
+
+    <div class="input-group shopkeeper-only">
+      <label>Business Registration Number</label>
+      <input type="text">
+    </div>
+
+    <!-- CITIZENSHIP -->
+    <div class="input-group">
+      <label>Upload Citizenship Image</label>
+      <input type="file" id="citizenship" accept="image/*" required>
+
+      <div class="image-preview">
+        <img id="preview">
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Sign Up</button>
+
+  </form>
+
+  <div class="footer">© 2026 Commercial Platform</div>
+</div>
+
+<script>
+const customerBtn = document.getElementById("customerBtn");
+const shopkeeperBtn = document.getElementById("shopkeeperBtn");
+
+const shopFields = document.querySelectorAll(".shopkeeper-only");
+const customerFields = document.querySelectorAll(".customer-only");
+
+const citizenship = document.getElementById("citizenship");
+const preview = document.getElementById("preview");
+
+/* DEFAULT CUSTOMER */
+showCustomer();
+
+customerBtn.onclick = showCustomer;
+shopkeeperBtn.onclick = showShopkeeper;
+
+function showCustomer() {
+  customerBtn.classList.add("active");
+  shopkeeperBtn.classList.remove("active");
+
+  shopFields.forEach(f => f.style.display = "none");
+  customerFields.forEach(f => f.style.display = "block");
+}
+
+function showShopkeeper() {
+  shopkeeperBtn.classList.add("active");
+  customerBtn.classList.remove("active");
+
+  shopFields.forEach(f => f.style.display = "block");
+  customerFields.forEach(f => f.style.display = "none");
+}
+
+/* IMAGE PREVIEW */
+citizenship.addEventListener("change", function() {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      preview.src = reader.result;
+      preview.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+/* SUBMIT */
+document.getElementById("signupForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  alert("Registration successful (Frontend Demo)");
+});
+</script>
+
+</body>
+</html>
